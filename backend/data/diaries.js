@@ -39,4 +39,4 @@ const diaries = [
   },
 ];
 
-export default diaries;
+module.exports = diaries;

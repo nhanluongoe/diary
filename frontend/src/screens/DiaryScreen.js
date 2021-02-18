@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col, Image, Container } from 'react-bootstrap';
-import diaries from '../diaries';
+import { Row, Col } from 'react-bootstrap';
+import axios from 'axios';
 
 const DiaryScreen = ({ match }) => {
-  const diary = diaries.find((d) => d._id === match.params.id);
+  const [diary, setDiary] = useState([]);
+
+  useEffect(() => {
+    const fetchDiary = async () => {
+      const { data } = await axios.get(`/api/diaries/${match.params.id}`);
+
+      setDiary(data);
+    };
+
+    fetchDiary();
+  }, []);
 
   return (
     <>
