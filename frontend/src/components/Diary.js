@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { Card } from 'react-bootstrap';
 
 const Diary = ({ diary }) => {
@@ -9,7 +11,7 @@ const Diary = ({ diary }) => {
 
   return (
     <Card className='my-3 p-3 rounded'>
-      <a href={`/diary/${diary._id}`}>
+      <Link to={`/diary/${diary._id}`}>
         <Card.Body>
           <Card.Title>{diary.title}</Card.Title>
           <Card.Subtitle className='mb-2 text-muted'>
@@ -17,7 +19,7 @@ const Diary = ({ diary }) => {
           </Card.Subtitle>
           <Card.Text>{_content}</Card.Text>
         </Card.Body>
-      </a>
+      </Link>
     </Card>
   );
 };
