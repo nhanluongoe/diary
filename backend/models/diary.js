@@ -21,6 +21,6 @@ const diarySchema = mongoose.Schema(
   }
 );
 
-const Diary = mongoose.model('User', diarySchema);
+const Diary = mongoose.model('Diary', diarySchema);
 
 export default Diary;

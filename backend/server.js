@@ -1,8 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
+import { notFound, errorHandler } from './middlewares/errorMiddleware.js';
 import connectDB from './config/db.js';
-import diaries from './data/diaries.js';
+
+import diariesRoute from './routes/diary.js';
 
 dotenv.config();
 
@@ -14,14 +16,10 @@ app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
-app.get('/api/diaries', (req, res) => {
-  res.json(diaries);
-});
+app.use('/api/diaries', diariesRoute);
 
-app.get('/api/diaries/:id', (req, res) => {
-  const diary = diaries.find((d) => d._id === req.params.id);
-  res.json(diary);
-});
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
