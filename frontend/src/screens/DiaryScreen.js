@@ -14,7 +14,7 @@ const DiaryScreen = ({ match }) => {
     };
 
     fetchDiary();
-  }, []);
+  }, [match]);
 
   return (
     <>
@@ -26,7 +26,7 @@ const DiaryScreen = ({ match }) => {
           <h1>{diary.title}</h1>
           <h5>{diary.time}</h5>
           <p className='font-italic'>
-            <i class='fas fa-user-edit'></i> {diary.author}
+            <i className='fas fa-user-edit'></i> {diary.author}
           </p>
           <p className='text-justify'>{diary.content}</p>
         </Col>
