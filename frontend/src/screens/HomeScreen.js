@@ -1,31 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import Diary from '../components/Diary';
-import axios from 'axios';
+import Message from '../components/Message';
+import Loader from '../components/Loader';
+import { listDiaries } from '../actions/diaryActions';
 
 const Homescreen = () => {
-  const [diaries, setDiaries] = useState([]);
+  const dispatch = useDispatch();
+
+  const diaryList = useSelector((state) => state.diaryList);
+  const { loading, error, diaries } = diaryList;
 
   useEffect(() => {
-    const fetchDiaries = async () => {
-      const { data } = await axios.get('/api/diaries');
-
-      setDiaries(data);
-    };
-
-    fetchDiaries();
-  }, []);
+    dispatch(listDiaries());
+  }, [dispatch]);
 
   return (
     <>
       <h1>Latest diaries</h1>
-      <Row>
-        {diaries.map((diary) => (
-          <Col key={diary._id} sm={12} md={6} lg={4} xl={3}>
-            <Diary diary={diary} />
-          </Col>
-        ))}
-      </Row>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
+        <Row>
+          {diaries.map((diary) => (
+            <Col key={diary._id} sm={12} md={6} lg={4} xl={3}>
+              <Diary diary={diary} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   );
 };

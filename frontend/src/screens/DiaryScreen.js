@@ -1,36 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
-import axios from 'axios';
+import { listDiaryDetails } from '../actions/diaryActions';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 const DiaryScreen = ({ match }) => {
-  const [diary, setDiary] = useState([]);
+  const dispatch = useDispatch();
+
+  const diaryDetails = useSelector((state) => state.diaryDetails);
+  const { loading, error, diary } = diaryDetails;
 
   useEffect(() => {
-    const fetchDiary = async () => {
-      const { data } = await axios.get(`/api/diaries/${match.params.id}`);
-
-      setDiary(data);
-    };
-
-    fetchDiary();
-  }, [match]);
+    dispatch(listDiaryDetails(match.params.id));
+  }, [dispatch, match]);
 
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>
         Go Back
       </Link>
-      <Row className='justify-content-center'>
-        <Col xs='8'>
-          <h1>{diary.title}</h1>
-          <h5>{diary.time}</h5>
-          <p className='font-italic'>
-            <i className='fas fa-user-edit'></i> {diary.author}
-          </p>
-          <p className='text-justify'>{diary.content}</p>
-        </Col>
-      </Row>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
+        <Row className='justify-content-center'>
+          <Col xs='8'>
+            <h1>{diary.title}</h1>
+            <h5>{diary.time}</h5>
+            <p className='font-italic'>
+              <i className='fas fa-user-edit'></i> {diary.author}
+            </p>
+            <p className='text-justify'>{diary.content}</p>
+          </Col>
+        </Row>
+      )}
     </>
   );
 };
