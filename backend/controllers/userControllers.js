@@ -19,7 +19,7 @@ const authUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(404);
+    res.status(401);
     throw new Error('Invalid email or password!');
   }
 });
@@ -48,7 +48,7 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      isAdmin: user.idAdmin,
+      isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
   } else {
@@ -74,8 +74,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error('User not found!');
   }
-
-  res.send('Success');
 });
 
 // @desc    Update user profile
@@ -97,15 +95,13 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
-      isAdmin: updatedUser.idAdmin,
+      isAdmin: updatedUser.isAdmin,
       token: generateToken(updatedUser._id),
     });
   } else {
     res.status(404);
     throw new Error('User not found!');
   }
-
-  res.send('Success');
 });
 
 export { authUser, getUserProfile, registerUser, updateUserProfile };

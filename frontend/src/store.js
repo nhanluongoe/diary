@@ -5,21 +5,28 @@ import {
   diaryListReducer,
   diaryDetailsReducer,
 } from './reducers/diaryReducers';
-import { userLoginReducer, userRegisterReducer } from './reducers/userReducers';
+import {
+  userDetailsReducer,
+  userLoginReducer,
+  userRegisterReducer,
+  userUpdateProfileReducer,
+} from './reducers/userReducers';
 
 const reducer = combineReducers({
   diaryList: diaryListReducer,
   diaryDetails: diaryDetailsReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
+  userDetails: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
-  ? JSON.parse(localStorage.getItem('info'))
+  ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
 
 const initialState = {
-  userInfo: { userInfo: userInfoFromStorage },
+  userLogin: { userInfo: userInfoFromStorage },
 };
 
 const middleWare = [thunk];
