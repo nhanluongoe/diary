@@ -19,6 +19,8 @@ export const listDiaries = () => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    console.log('debug');
+    console.log(error.response);
     dispatch({
       type: DIARY_LIST_FAIL,
       payload:

@@ -1,12 +1,12 @@
 import asyncHandler from 'express-async-handler';
-import Diaries from '../models/diary.js';
+import Diaries from '../models/diaryModel.js';
 
 // @desc Fetech all diaries
 // @route GET /api/diaries
 // @access Public
 const getDiaries = asyncHandler(async (req, res) => {
   const diaries = await Diaries.find({});
-
+  // throw new Error('test!');
   res.json(diaries);
 });
 

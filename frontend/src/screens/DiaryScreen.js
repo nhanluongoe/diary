@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import { listDiaryDetails } from '../actions/diaryActions';
 import Loader from '../components/Loader';
-import Message from '../components/Message';
 
 const DiaryScreen = ({ match }) => {
   const dispatch = useDispatch();
@@ -24,7 +23,7 @@ const DiaryScreen = ({ match }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>{error}</Message>
+        <h2 className='text-danger'>{error}</h2>
       ) : (
         <Row className='justify-content-center'>
           <Col xs='8'>

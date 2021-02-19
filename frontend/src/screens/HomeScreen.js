@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import Diary from '../components/Diary';
-import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listDiaries } from '../actions/diaryActions';
 
@@ -22,7 +21,7 @@ const Homescreen = () => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>{error}</Message>
+        <h2 className='text-danger'>{error}</h2>
       ) : (
         <Row>
           {diaries.map((diary) => (

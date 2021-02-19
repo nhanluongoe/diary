@@ -4,7 +4,8 @@ import colors from 'colors';
 import { notFound, errorHandler } from './middlewares/errorMiddleware.js';
 import connectDB from './config/db.js';
 
-import diariesRoute from './routes/diary.js';
+import diariesRoute from './routes/diaryRoutes.js';
+import userRoute from './routes/userRoutes.js';
 
 dotenv.config();
 
@@ -12,11 +13,14 @@ connectDB();
 
 const app = express();
 
+app.use(express.json());
+
 app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
 app.use('/api/diaries', diariesRoute);
+app.use('/api/users', userRoute);
 
 app.use(notFound);
 app.use(errorHandler);

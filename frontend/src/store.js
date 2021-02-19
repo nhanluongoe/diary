@@ -5,13 +5,22 @@ import {
   diaryListReducer,
   diaryDetailsReducer,
 } from './reducers/diaryReducers';
+import { userLoginReducer, userRegisterReducer } from './reducers/userReducers';
 
 const reducer = combineReducers({
   diaryList: diaryListReducer,
   diaryDetails: diaryDetailsReducer,
+  userLogin: userLoginReducer,
+  userRegister: userRegisterReducer,
 });
 
-const initialState = {};
+const userInfoFromStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('info'))
+  : null;
+
+const initialState = {
+  userInfo: { userInfo: userInfoFromStorage },
+};
 
 const middleWare = [thunk];
 
