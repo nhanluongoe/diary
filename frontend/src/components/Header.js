@@ -31,19 +31,28 @@ const Header = () => {
                   </Nav.Link>
                   <NavDropdown title={userInfo.name} id='username'>
                     <LinkContainer to='/profile'>
-                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                      <NavDropdown.Item>
+                        <i className='fas fa-user'></i> Profile
+                      </NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Item onClick={logoutHandler}>
-                      Logout
+                      <i className='fas fa-sign-out-alt'></i> Logout
                     </NavDropdown.Item>
                   </NavDropdown>
                 </Container>
               ) : (
-                <LinkContainer to='/login'>
-                  <Nav.Link>
-                    <i className='fas fa-user'></i> Sign In
-                  </Nav.Link>
-                </LinkContainer>
+                <Container>
+                  <LinkContainer to='/login'>
+                    <Nav.Link>
+                      <i className='fas fa-sign-in-alt'></i> Sign In
+                    </Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to='/register'>
+                    <Nav.Link>
+                      <i className='fas fa-user-plus'></i> Register
+                    </Nav.Link>
+                  </LinkContainer>
+                </Container>
               )}
             </Nav>
           </Navbar.Collapse>
