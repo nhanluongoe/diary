@@ -17,14 +17,23 @@ const Diary = ({ diary, usersInfo }) => {
   let time = diary ? diary.createdAt.split('T')[0] : '';
 
   return (
-    <Card className='my-3 p-3 rounded hover'>
+    <Card className='my-3 p-3 rounded' bg='dark' variant='dark'>
       <Link className='text-decoration-none' to={`/diary/${diary._id}`}>
         <Card.Body>
-          <Card.Title>{diary.title}</Card.Title>
+          <Card.Title className='font-weight-bold text-light py-1'>
+            {diary.title}
+          </Card.Title>
           <Card.Subtitle className='mb-2 text-muted'>
-            by <span className='font-italic'>@{author}</span> at {time}
+            by{' '}
+            <span className='font-italic font-weight-bold text-light'>
+              {author}
+            </span>{' '}
+            at{' '}
+            <span className='font-italic font-weight-bold text-light'>
+              {time}
+            </span>
           </Card.Subtitle>
-          <Card.Text>{_content}</Card.Text>
+          <Card.Text className='text-light'>{_content}</Card.Text>
         </Card.Body>
       </Link>
     </Card>
