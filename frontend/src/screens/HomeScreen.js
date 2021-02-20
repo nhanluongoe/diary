@@ -11,6 +11,7 @@ const Homescreen = () => {
 
   const diaryList = useSelector((state) => state.diaryList);
   const { loading, error, diaries } = diaryList;
+  diaries.reverse();
 
   // const usersAll = useSelector((state) => state.usersAll);
   // const { usersInfo } = usersAll;

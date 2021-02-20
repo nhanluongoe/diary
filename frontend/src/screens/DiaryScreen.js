@@ -23,6 +23,12 @@ const DiaryScreen = ({ match }) => {
 
   author = author ? author.name : '';
 
+  let time = diary
+    ? diary.createdAt
+      ? diary.createdAt.split('T')[0]
+      : ''
+    : '';
+
   useEffect(() => {
     dispatch(listDiaryDetails(match.params.id));
     dispatch(getUsersAll());
@@ -31,7 +37,7 @@ const DiaryScreen = ({ match }) => {
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>
-        Go Back
+        <i class='fas fa-arrow-left'></i> Go Back
       </Link>
       {loading ? (
         <Loader />
@@ -41,7 +47,6 @@ const DiaryScreen = ({ match }) => {
         <Row className='justify-content-center'>
           <Col xs='8'>
             <h1>{diary.title}</h1>
-            <h5>{diary.time}</h5>
             <div>
               {errorUsersAll ? (
                 <h2 className='text-danger'>{error}</h2>
@@ -50,6 +55,9 @@ const DiaryScreen = ({ match }) => {
                   <i className='fas fa-user-edit'></i> {author}
                 </p>
               )}
+              <p>
+                <i class='far fa-clock'></i> {time}
+              </p>
             </div>
             <p className='text-justify'>{diary.content}</p>
           </Col>

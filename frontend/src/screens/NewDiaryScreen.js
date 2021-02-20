@@ -73,11 +73,12 @@ const NewDiaryScreen = ({ location, history }) => {
         <Form.Group controlId='content'>
           <Form.Label>Content</Form.Label>
           <Form.Control
-            type='text'
+            as='textarea'
+            rows={15}
             placeholder='Enter content'
             value={content}
             onChange={(e) => setContent(e.target.value)}
-          ></Form.Control>
+          />
         </Form.Group>
 
         <Button type='submit' variant='primary'>

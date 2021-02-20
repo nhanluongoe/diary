@@ -9,19 +9,20 @@ const Diary = ({ diary, usersInfo }) => {
       ? diary.content.substr(0, 100) + ' ...'
       : diary.content;
 
-  // console.log(usersInfo);
   let author =
     diary && usersInfo
       ? usersInfo.filter((user) => user._id === diary.user)[0].name
       : '';
 
+  let time = diary ? diary.createdAt.split('T')[0] : '';
+
   return (
-    <Card className='my-3 p-3 rounded'>
-      <Link to={`/diary/${diary._id}`}>
+    <Card className='my-3 p-3 rounded hover'>
+      <Link className='text-decoration-none' to={`/diary/${diary._id}`}>
         <Card.Body>
           <Card.Title>{diary.title}</Card.Title>
           <Card.Subtitle className='mb-2 text-muted'>
-            <i className='fas fa-user-edit'></i> {author}
+            by <span className='font-italic'>@{author}</span> at {time}
           </Card.Subtitle>
           <Card.Text>{_content}</Card.Text>
         </Card.Body>
