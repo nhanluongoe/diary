@@ -5,6 +5,9 @@ import {
   DIARY_DETAILS_REQUEST,
   DIARY_DETAILS_SUCCESS,
   DIARY_DETAILS_FAIL,
+  ADD_NEW_DIARY_REQUEST,
+  ADD_NEW_DIARY_SUCCESS,
+  ADD_NEW_DIARY_FAIL,
 } from '../constants/diaryConstants';
 import axios from 'axios';
 
@@ -44,6 +47,45 @@ export const listDiaryDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DIARY_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const addNewDiary = (title, content) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ADD_NEW_DIARY_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      '/api/diaries/new',
+      {
+        title,
+        content,
+      },
+      config
+    );
+
+    dispatch({
+      type: ADD_NEW_DIARY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADD_NEW_DIARY_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

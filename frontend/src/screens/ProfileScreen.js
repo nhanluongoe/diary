@@ -28,10 +28,8 @@ const ProfileScreen = ({ history }) => {
       history.push('/login');
     } else {
       if (!user.name) {
-        console.log('first');
         dispatch(getUserDetails('profile'));
       } else {
-        console.log('second');
         setName(user.name);
         setEmail(user.email);
       }

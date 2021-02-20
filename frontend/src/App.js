@@ -8,6 +8,7 @@ import DiaryScreen from './screens/DiaryScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import NewDiaryScreen from './screens/NewDiaryScreen';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path='/profile' component={ProfileScreen} exact />
           <Route path='/login' component={LoginScreen} exact />
           <Route path='/diary/:id' component={DiaryScreen} exact />
+          <Route path='/new' component={NewDiaryScreen} exact />
         </Container>
       </main>
       <Footer />

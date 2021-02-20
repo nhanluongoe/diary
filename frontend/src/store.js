@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import {
   diaryListReducer,
   diaryDetailsReducer,
+  addNewDiaryReducer,
 } from './reducers/diaryReducers';
 import {
   userDetailsReducer,
@@ -15,6 +16,7 @@ import {
 const reducer = combineReducers({
   diaryList: diaryListReducer,
   diaryDetails: diaryDetailsReducer,
+  addNewDiary: addNewDiaryReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
