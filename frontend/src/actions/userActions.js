@@ -12,6 +12,9 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
+  USER_ALL_REQUEST,
+  USER_ALL_SUCCESS,
+  USER_ALL_FAIL,
 } from '../constants/userConstants';
 import axios from 'axios';
 
@@ -214,6 +217,37 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     }
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const getUsersAll = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_ALL_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const { data } = await axios.get(`/api/users`, config);
+
+    dispatch({
+      type: USER_ALL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+
+    dispatch({
+      type: USER_ALL_FAIL,
       payload: message,
     });
   }

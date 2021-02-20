@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import Diary from '../components/Diary';
 import Loader from '../components/Loader';
 import { listDiaries } from '../actions/diaryActions';
+import { getUsersAll } from '../actions/userActions';
 
 const Homescreen = () => {
   const dispatch = useDispatch();
@@ -11,8 +12,12 @@ const Homescreen = () => {
   const diaryList = useSelector((state) => state.diaryList);
   const { loading, error, diaries } = diaryList;
 
+  // const usersAll = useSelector((state) => state.usersAll);
+  // const { usersInfo } = usersAll;
+
   useEffect(() => {
     dispatch(listDiaries());
+    dispatch(getUsersAll());
   }, [dispatch]);
 
   return (
