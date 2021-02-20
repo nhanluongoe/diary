@@ -11,10 +11,9 @@ const Homescreen = () => {
 
   const diaryList = useSelector((state) => state.diaryList);
   const { loading, error, diaries } = diaryList;
-  diaries.reverse();
 
-  // const usersAll = useSelector((state) => state.usersAll);
-  // const { usersInfo } = usersAll;
+  // Reverse for displaying latest diaries
+  diaries.reverse();
 
   useEffect(() => {
     dispatch(listDiaries());
@@ -23,7 +22,7 @@ const Homescreen = () => {
 
   return (
     <>
-      <h1>Latest diaries</h1>
+      <h1 className='text-center'>Have a good time! :)</h1>
       {loading ? (
         <Loader />
       ) : error ? (
