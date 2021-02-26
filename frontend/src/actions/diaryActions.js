@@ -8,6 +8,9 @@ import {
   ADD_NEW_DIARY_REQUEST,
   ADD_NEW_DIARY_SUCCESS,
   ADD_NEW_DIARY_FAIL,
+  EIDT_DIARY_REQUEST,
+  EIDT_DIARY_SUCCESS,
+  EIDT_DIARY_FAIL,
 } from '../constants/diaryConstants';
 import axios from 'axios';
 
@@ -90,6 +93,49 @@ export const addNewDiary = (title, content) => async (dispatch, getState) => {
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
+    });
+  }
+};
+
+export const editDiary = (updatedDiary) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: EIDT_DIARY_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const {
+      diaryDetails: { diary },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/diaries/${diary._id}/edit`,
+      updatedDiary,
+      config
+    );
+
+    dispatch({
+      type: EIDT_DIARY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: EIDT_DIARY_FAIL,
+      payload: message,
     });
   }
 };

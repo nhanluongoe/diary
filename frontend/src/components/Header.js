@@ -27,7 +27,7 @@ const Header = () => {
               {userInfo ? (
                 <Container>
                   <Nav.Link href='/new'>
-                    <i class='fas fa-plus'></i> New diary
+                    <i className='fas fa-plus'></i> New diary
                   </Nav.Link>
                   <NavDropdown title={userInfo.name} id='username'>
                     <LinkContainer to='/profile'>

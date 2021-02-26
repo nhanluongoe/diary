@@ -8,6 +8,9 @@ import {
   ADD_NEW_DIARY_REQUEST,
   ADD_NEW_DIARY_SUCCESS,
   ADD_NEW_DIARY_FAIL,
+  EIDT_DIARY_REQUEST,
+  EIDT_DIARY_SUCCESS,
+  EIDT_DIARY_FAIL,
 } from '../constants/diaryConstants';
 
 export const diaryListReducer = (state = { diaries: [] }, action) => {
@@ -43,6 +46,19 @@ export const addNewDiaryReducer = (state = {}, action) => {
     case ADD_NEW_DIARY_SUCCESS:
       return { loading: false, diaryInfo: action.payload };
     case ADD_NEW_DIARY_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const editDiaryReducer = (state = {}, action) => {
+  switch (action.type) {
+    case EIDT_DIARY_REQUEST:
+      return { ...state, loading: true };
+    case EIDT_DIARY_SUCCESS:
+      return { loading: false, success: true, diaryInfo: action.payload };
+    case EIDT_DIARY_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

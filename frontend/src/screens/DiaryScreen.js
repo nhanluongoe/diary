@@ -16,6 +16,9 @@ const DiaryScreen = ({ match }) => {
   const errorUsersAll = usersAll.error;
   const { usersInfo } = usersAll;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   let author =
     usersInfo && diary
       ? usersInfo.filter((user) => user._id === diary.user)[0]
@@ -34,10 +37,18 @@ const DiaryScreen = ({ match }) => {
     dispatch(getUsersAll());
   }, [dispatch, match]);
 
+  const renderEditButton = () => {
+    return (
+      <Link className='btn btn-dark my-3' to={`/diary/${diary._id}/edit`}>
+        <i className='far fa-edit'></i> Edit
+      </Link>
+    );
+  };
+
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>
-        <i class='fas fa-arrow-left'></i> Go Back
+        <i className='fas fa-arrow-left'></i> Go Back
       </Link>
       {loading ? (
         <Loader />
@@ -47,18 +58,24 @@ const DiaryScreen = ({ match }) => {
         <Row className='justify-content-center'>
           <Col xs='8'>
             <h1>{diary.title}</h1>
-            <div>
-              {errorUsersAll ? (
-                <h2 className='text-danger'>{error}</h2>
-              ) : (
-                <p className='font-italic'>
-                  <i className='fas fa-user-edit'></i> {author}
+            <Row className='justify-content-between'>
+              <Col xs='8'>
+                {errorUsersAll ? (
+                  <h2 className='text-danger'>{error}</h2>
+                ) : (
+                  <p className='font-italic'>
+                    <i className='fas fa-user-edit'></i> {author}
+                  </p>
+                )}
+
+                <p>
+                  <i className='far fa-clock'></i> {time}
                 </p>
-              )}
-              <p>
-                <i class='far fa-clock'></i> {time}
-              </p>
-            </div>
+              </Col>
+              <Col xs='2'>
+                {userInfo._id === diary.user && renderEditButton()}
+              </Col>
+            </Row>
             <p className='text-justify'>{diary.content}</p>
           </Col>
         </Row>

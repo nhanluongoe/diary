@@ -5,6 +5,7 @@ import {
   diaryListReducer,
   diaryDetailsReducer,
   addNewDiaryReducer,
+  editDiaryReducer,
 } from './reducers/diaryReducers';
 import {
   userDetailsReducer,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   diaryList: diaryListReducer,
   diaryDetails: diaryDetailsReducer,
   addNewDiary: addNewDiaryReducer,
+  diaryEdit: editDiaryReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,

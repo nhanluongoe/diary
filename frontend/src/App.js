@@ -9,6 +9,7 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import NewDiaryScreen from './screens/NewDiaryScreen';
+import EditDiaryScreen from './screens/EditDiaryScreen';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path='/login' component={LoginScreen} exact />
           <Route path='/diary/:id' component={DiaryScreen} exact />
           <Route path='/new' component={NewDiaryScreen} exact />
+          <Route path='/diary/:id/edit' component={EditDiaryScreen} exact />
         </Container>
       </main>
       <Footer />
