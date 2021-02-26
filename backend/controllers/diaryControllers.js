@@ -1,12 +1,12 @@
 import asyncHandler from 'express-async-handler';
-import Diaries from '../models/diaryModel.js';
+import Diary from '../models/diaryModel.js';
 import User from '../models/userModel.js';
 
 // @desc Fetech all diaries
 // @route GET /api/diaries
 // @access Public
 const getDiaries = asyncHandler(async (req, res) => {
-  const diaries = await Diaries.find({});
+  const diaries = await Diary.find({});
   // throw new Error('test!');
   res.json(diaries);
 });
@@ -15,7 +15,7 @@ const getDiaries = asyncHandler(async (req, res) => {
 // @route   GET /api/diaries/:id
 // @access  Public
 const getDiaryById = asyncHandler(async (req, res) => {
-  const diary = await Diaries.findById(req.params.id);
+  const diary = await Diary.findById(req.params.id);
 
   if (diary) {
     res.json(diary);
@@ -33,7 +33,7 @@ const addDiary = asyncHandler(async (req, res) => {
 
   const user = await User.findById(req.user._id);
 
-  const diary = await Diaries.create({
+  const diary = await Diary.create({
     title,
     content,
     user: user._id,
@@ -52,4 +52,37 @@ const addDiary = asyncHandler(async (req, res) => {
   }
 });
 
-export { getDiaries, getDiaryById, addDiary };
+// @desc    Update diary
+// @route   PUT /api/diaries/:id/edit
+// @access  Private
+const updateDiary = asyncHandler(async (req, res) => {
+  const diary = await Diary.findById(req.params.id);
+
+  const user = await User.findById(req.user._id);
+
+  // if (diary && diary.user !== user._id) {
+  //   throw new Error("Uh oh! You're not owner of this diary!");
+  // }
+
+  // console.log(diary);
+  // console.log(user);
+  // console.log(diary.user.toString() === user._id.toString());
+
+  if (diary && diary.user.toString() === user._id.toString()) {
+    diary.title = req.body.title || diary.title;
+    diary.content = req.body.content || diary.content;
+
+    const updatedDiary = await diary.save();
+
+    res.json({
+      _id: updatedDiary._id,
+      title: updatedDiary.title,
+      content: updatedDiary.content,
+    });
+  } else {
+    res.status(404);
+    throw new Error("Diary not found or you don't own this diary!");
+  }
+});
+
+export { getDiaries, getDiaryById, addDiary, updateDiary };
